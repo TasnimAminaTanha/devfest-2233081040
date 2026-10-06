@@ -495,3 +495,249 @@ html, body {
     grid-template-columns: 100px 1fr;
   }
 }
+
+/* ============================================================
+   FEATURE: PDF Upload Panel
+   ============================================================ */
+
+/* ---------- Warning alert variant ---------- */
+.alert-warning {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}
+
+/* ---------- Error list inside alert ---------- */
+.error-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error-list li::before {
+  content: '• ';
+}
+
+/* ---------- Drop zone (empty state) ---------- */
+.drop-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-placeholder-bg);
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  cursor: default;
+}
+
+.drop-zone--active {
+  border-color: var(--color-primary);
+  background: #eff6ff;
+}
+
+.drop-zone--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.drop-zone-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.drop-zone-primary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.drop-zone-secondary {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  max-width: 440px;
+}
+
+/* ---------- Stats bar (shown when files present) ---------- */
+.upload-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.drop-hint {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: 4px 10px;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  cursor: default;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.drop-hint--active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: #eff6ff;
+}
+
+/* ---------- Upload file table ---------- */
+.upload-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.upload-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.upload-table thead {
+  background: #f8fafc;
+}
+
+.upload-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.upload-table td {
+  padding: 10px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.upload-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.upload-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.upload-table tbody tr.row-error {
+  background: #fef2f2;
+}
+
+.upload-table tbody tr.row-error:hover {
+  background: #fee2e2;
+}
+
+/* Column widths */
+.ucol-name   { min-width: 220px; }
+.ucol-size   { width: 90px;  white-space: nowrap; }
+.ucol-pages  { width: 90px;  text-align: center; }
+.ucol-action { width: 90px;  text-align: center; }
+
+/* File name cell */
+.ucol-name {
+  display: table-cell; /* keep td behaviour */
+}
+
+.file-icon {
+  margin-right: 6px;
+  font-size: 0.95rem;
+}
+
+.file-name {
+  font-weight: 500;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.file-error-msg {
+  display: block;
+  font-size: 0.75rem;
+  color: #b91c1c;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* Pages cell states */
+.pages-reading {
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+.pages-error {
+  color: #b91c1c;
+  font-weight: 700;
+  cursor: help;
+}
+
+/* ---------- Remove button ---------- */
+.btn-remove {
+  padding: 4px 12px;
+  background: transparent;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  border-radius: var(--radius);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+}
+
+.btn-remove:hover {
+  background: #fef2f2;
+  border-color: #f87171;
+}
+
+.btn-remove:focus-visible {
+  outline: 2px solid #b91c1c;
+  outline-offset: 2px;
+}
+
+/* ---------- Disabled primary button ---------- */
+.btn-primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .upload-stats-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .drop-hint { display: none; }
+
+  .file-name {
+    max-width: 160px;
+  }
+}

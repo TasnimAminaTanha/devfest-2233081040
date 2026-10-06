@@ -1,46 +1,51 @@
 import React, { useState } from 'react'
-import { LanguageProvider, useLanguage } from './context/LanguageContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Header from './components/Header'
 import TenderInfoPanel from './components/TenderInfoPanel'
 import RequirementsPanel from './components/RequirementsPanel'
-import PlaceholderCard from './components/PlaceholderCard'
+import UploadPanel from './components/UploadPanel'
+import usePdfUpload from './hooks/usePdfUpload'
 
 function AppShell() {
-  const { t } = useLanguage()
-
-  // Central state — shared across all panels as features are added
-  const [tender, setTender] = useState(null)
+  // ── Tender / requirements state (set by RequirementsPanel) ──────
+  const [tender, setTender]           = useState(null)
   const [requirements, setRequirements] = useState(null)
-  const [fileName, setFileName] = useState(null)
+  const [reqFileName, setReqFileName]   = useState(null)
 
   function handleRequirementsLoaded({ tender, requirements, fileName }) {
     setTender(tender)
     setRequirements(requirements)
-    setFileName(fileName)
+    setReqFileName(fileName)
   }
+
+  // ── PDF upload state (managed by usePdfUpload hook) ─────────────
+  const { uploadedFiles, addFiles, removeFile, isAtFileLimit, isAtSizeLimit } =
+    usePdfUpload()
 
   return (
     <div className="app-layout">
       <Header />
 
       <main className="app-main">
-        {/* Row 1: Tender info (left) + Requirements (right, full-width) */}
+        {/* Row 1: Tender info (narrow left) + Requirements (wide right) */}
         <div className="main-grid">
           <TenderInfoPanel tender={tender} />
-
           <RequirementsPanel
             tender={tender}
             requirements={requirements}
-            fileName={fileName}
+            fileName={reqFileName}
             onLoaded={handleRequirementsLoaded}
           />
         </div>
 
-        {/* Row 2: Upload section — placeholder until next feature step */}
+        {/* Row 2: PDF upload (full width) */}
         <div className="main-grid main-grid--single" style={{ marginTop: '20px' }}>
-          <PlaceholderCard
-            title={t('sectionUpload')}
-            description={t('placeholderUpload')}
+          <UploadPanel
+            uploadedFiles={uploadedFiles}
+            addFiles={addFiles}
+            removeFile={removeFile}
+            isAtFileLimit={isAtFileLimit}
+            isAtSizeLimit={isAtSizeLimit}
           />
         </div>
       </main>
